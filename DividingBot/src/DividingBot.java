@@ -10,16 +10,15 @@ public class DividingBot{
 	static int intervalPosition = 0;
     static String firstNumberLine;
 	static String secondNumberLine;
+	static String replyLine;
 	static String input;
+	static int splittableLength;
+	static String firstNumberRemainder;
+	static int counter = 0;
+	static int startPrintPosition = 0;
     
-	public static String[] splitApart(String string, int splitHereIndex){
-        String[] result = new String[2];
-        result[0] = string.substring(0, splitHereIndex);
-        result[1] = string.substring(splitHereIndex);
-        return result;
-    }
     
-    public static void initialChecks()throws Exception{
+	public static void inputChecks()throws Exception{
     	try{
             firstNumber = Integer.parseInt(firstNumberLine);
         }
@@ -48,6 +47,37 @@ public class DividingBot{
             System.exit(0);
         }
     }
+	
+	public static String[] splitApart(String string, int splitHereIndex){
+        String[] result = new String[2];
+        result[0] = string.substring(0, splitHereIndex);
+        result[1] = string.substring(splitHereIndex);
+        return result;
+    }
+	
+	
+	
+	public static String getIterationLine1() {
+		return "";
+	}
+	
+	public static String getIterationLine2() {
+		return "";
+	}
+	
+	public static String getIterationLine3() {
+		return "";
+	}
+	
+	public static String getIterationLine4() {
+		return "";
+	}
+	
+	public static String getIterationLine5() {
+		return "";
+	}
+    
+    
     
     public static void main(String []args) throws Exception{
         
@@ -55,7 +85,7 @@ public class DividingBot{
         System.out.println("¬ведите задание в формате: делимое/делитель");
         scanner = new Scanner(System.in);
         input = scanner.nextLine();
-        initialChecks();
+        inputChecks();
         scanner.close();
         
         String[] numberLines = input.split("/");
@@ -63,11 +93,9 @@ public class DividingBot{
         secondNumberLine = numberLines[1];
                 
         reply = Math.round(firstNumber/secondNumber);
-        String replyLine = Integer.toString(reply);        
-        int splittableLength = secondNumberLine.length();
-        String firstNumberRemainder = firstNumberLine;
-        int counter = 0;
-        int startPrintPosition = 1;
+        replyLine = Integer.toString(reply);        
+        splittableLength = secondNumberLine.length();
+        firstNumberRemainder = firstNumberLine;
         
         while(firstNumberRemainder.length()>0){
         	String iterationLine1="";
