@@ -85,13 +85,12 @@ public class DividingBot{
         System.out.println("Введите задание в формате: делимое/делитель");
         scanner = new Scanner(System.in);
         input = scanner.nextLine();
-        inputChecks();
         scanner.close();
-        
         String[] numberLines = input.split("/");
         firstNumberLine = numberLines[0];
         secondNumberLine = numberLines[1];
-                
+        inputChecks();
+        
         reply = Math.round(firstNumber/secondNumber);
         replyLine = Integer.toString(reply);        
         splittableLength = secondNumberLine.length();
