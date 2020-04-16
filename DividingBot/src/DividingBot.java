@@ -23,27 +23,27 @@ public class DividingBot{
             firstNumber = Integer.parseInt(firstNumberLine);
         }
         catch(Exception e){
-            System.out.println("Работа утилиты прекращена: неверный формат ввода");
+            System.out.println("Р Р°Р±РѕС‚Р° СѓС‚РёР»РёС‚С‹ РїСЂРµРєСЂР°С‰РµРЅР°: РЅРµРІРµСЂРЅС‹Р№ С„РѕСЂРјР°С‚ РІРІРѕРґР°");
             System.exit(0);
         }
         try{
             secondNumber = Integer.parseInt(secondNumberLine);
         }
         catch(Exception e){
-            System.out.println("Работа утилиты прекращена: неверный формат ввода");
+            System.out.println("Р Р°Р±РѕС‚Р° СѓС‚РёР»РёС‚С‹ РїСЂРµРєСЂР°С‰РµРЅР°: РЅРµРІРµСЂРЅС‹Р№ С„РѕСЂРјР°С‚ РІРІРѕРґР°");
             System.exit(0);
         }
         if(firstNumber<secondNumber){
-            System.out.println("Работа утилиты прекращена: Невозможно получить ответ в виде целого числа с остатком");
+            System.out.println("Р Р°Р±РѕС‚Р° СѓС‚РёР»РёС‚С‹ РїСЂРµРєСЂР°С‰РµРЅР°: РќРµРІРѕР·РјРѕР¶РЅРѕ РїРѕР»СѓС‡РёС‚СЊ РѕС‚РІРµС‚ РІ РІРёРґРµ С†РµР»РѕРіРѕ С‡РёСЃР»Р° СЃ РѕСЃС‚Р°С‚РєРѕРј");
             System.exit(0);
         }
         if(secondNumber==0){
-            System.out.println("Работа утилиты прекращена: Невозможно разделить на 0");
+            System.out.println("Р Р°Р±РѕС‚Р° СѓС‚РёР»РёС‚С‹ РїСЂРµРєСЂР°С‰РµРЅР°: РќРµРІРѕР·РјРѕР¶РЅРѕ СЂР°Р·РґРµР»РёС‚СЊ РЅР° 0");
             System.exit(0);
         }
         intervalPosition = input.indexOf("/");
         if(intervalPosition<1){
-            System.out.println("Работа утилиты прекращена: неверный формат ввода");
+            System.out.println("Р Р°Р±РѕС‚Р° СѓС‚РёР»РёС‚С‹ РїСЂРµРєСЂР°С‰РµРЅР°: РЅРµРІРµСЂРЅС‹Р№ С„РѕСЂРјР°С‚ РІРІРѕРґР°");
             System.exit(0);
         }
     }
@@ -81,8 +81,8 @@ public class DividingBot{
     
     public static void main(String []args) throws Exception{
         
-        System.out.println("Добро пожаловать в утилиту автоматического деления столбиком!");
-        System.out.println("Введите задание в формате: делимое/делитель");
+        System.out.println("Р”РѕР±СЂРѕ РїРѕР¶Р°Р»РѕРІР°С‚СЊ РІ СѓС‚РёР»РёС‚Сѓ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРіРѕ РґРµР»РµРЅРёСЏ СЃС‚РѕР»Р±РёРєРѕРј!");
+        System.out.println("Р’РІРµРґРёС‚Рµ Р·Р°РґР°РЅРёРµ РІ С„РѕСЂРјР°С‚Рµ: РґРµР»РёРјРѕРµ/РґРµР»РёС‚РµР»СЊ");
         scanner = new Scanner(System.in);
         input = scanner.nextLine();
         inputChecks();
