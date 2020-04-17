@@ -7,19 +7,67 @@ public class DividingBot{
     static int firstNumber=0;
 	static int secondNumber=0;
 	static int reply=0;
-	static int intervalPosition = 0;
-    static String firstNumberLine;
+	static int intervalPosition=0;
+    static int counter=0;
+	static int startPrintPosition=0;
+	static int multiplication=0;
+	static int subtraction=0;
+	//static int firstNumberFragmentLength=0;
+	//static int multiplicationLength=0;
+	static int firstNumberFragment=0;
+	static String firstNumberLine;
 	static String secondNumberLine;
 	static String replyLine;
 	static String input;
-	static int splittableLength;
 	static String firstNumberRemainder;
-	static int counter = 0;
-	static int startPrintPosition = 0;
+	static String multiplicationLine;
+	static String subtractionLine;
+	static String firstNumberFragmentLine;
     
-    
+	public static void main(String []args) throws Exception{
+        
+        System.out.println("Добро пожаловать в утилиту автоматического деления столбиком!");
+        System.out.println("Введите задание в формате: делимое/делитель");
+        scanner = new Scanner(System.in);
+        input = scanner.nextLine();
+        scanner.close();
+        inputChecks();
+        reply = Math.round(firstNumber/secondNumber);
+        replyLine = Integer.toString(reply);  
+        
+        int splittableLength = secondNumberLine.length();
+        while(true){
+        	String[] fragmentedNumber = splitApart(firstNumberLine, splittableLength);
+            firstNumberFragmentLine = fragmentedNumber[0];
+            firstNumberRemainder = fragmentedNumber[1];
+            firstNumberFragment = Integer.parseInt(firstNumberFragmentLine);
+            if(firstNumberFragment<secondNumber){
+                splittableLength++;
+                continue;
+            }
+            else break;
+        }
+        do{
+        	System.out.println(getIterationLine1());
+        	System.out.println(getIterationLine2());
+        	System.out.println(getIterationLine3());
+        	System.out.println(getIterationLine4());
+        	//counter++; 
+        } while(firstNumberRemainder.length()>0);
+  
+    }
+	
 	public static void inputChecks()throws Exception{
-    	try{
+		try{
+			String[] numberLines = input.split("/");
+			firstNumberLine = numberLines[0];
+			secondNumberLine = numberLines[1];
+		}
+		catch(Exception e) {
+			System.out.println("Работа утилиты прекращена: неверный формат ввода");
+            System.exit(0);
+		}
+		try{
             firstNumber = Integer.parseInt(firstNumberLine);
         }
         catch(Exception e){
@@ -47,116 +95,89 @@ public class DividingBot{
             System.exit(0);
         }
     }
-	
-	public static String[] splitApart(String string, int splitHereIndex){
-        String[] result = new String[2];
-        result[0] = string.substring(0, splitHereIndex);
-        result[1] = string.substring(splitHereIndex);
-        return result;
-    }
-	
-	
-	
+		
 	public static String getIterationLine1() {
-		return "";
+		String output="";
+		if(counter==0){
+			startPrintPosition++;
+			output = printRegex(" ", startPrintPosition) + firstNumber + " | " + secondNumber;
+		}
+		else {
+			subtraction = firstNumberFragment-multiplication;
+			startPrintPosition += Integer.toString(multiplication).length() - Integer.toString(subtraction).length();
+			firstNumberFragment = subtraction;
+			while(firstNumberFragment < secondNumber) {
+				if(firstNumberRemainder.length()>0) {
+					firstNumberFragment = firstNumberFragment*10 + Character.digit(firstNumberRemainder.charAt(0), 10);
+					firstNumberRemainder=firstNumberRemainder.substring(1);
+					counter++;
+				}
+				else break;
+			}
+			firstNumberFragmentLine = Integer.toString(firstNumberFragment);
+			
+			output = printRegex(" ", startPrintPosition) + firstNumberFragmentLine;
+		}
+		return output;
 	}
 	
 	public static String getIterationLine2() {
-		return "";
+		String output="";
+		if(firstNumberRemainder.length()>0) {
+			startPrintPosition--;
+			output = printRegex(" ", startPrintPosition);
+			output = printRegex("-", 1);
+			if(counter==0) {
+				output += printRegex(" ", firstNumberLine.length());
+				
+				output += " | ";
+				output += printRegex("-", secondNumberLine.length()+1);
+			}
+		}
+		return output;
 	}
 	
 	public static String getIterationLine3() {
-		return "";
+		//System.out.println("Вход в getIterationLine3()"+ "firstNumberRemainder= "+firstNumberRemainder);
+		String output="";
+		multiplication = secondNumber*Character.digit(replyLine.charAt(counter), 10);
+		if(firstNumberRemainder.length()>0) {
+			startPrintPosition++;
+			if(firstNumberFragmentLine.length() > Integer.toString(multiplication).length()) {
+				startPrintPosition++;
+			}
+			output = printRegex(" ", startPrintPosition);
+			output += multiplication;
+		}
+		if(counter==0) {
+			output += printRegex(" ", firstNumberRemainder.length());
+			output += " | " + reply;
+			counter++;
+		}
+		//System.out.println("Выход из getIterationLine3(), "+ "output= "+output);
+		return output;
 	}
 	
 	public static String getIterationLine4() {
-		return "";
+		String output="";
+		if(firstNumberRemainder.length()>0) {
+			output = printRegex(" ", startPrintPosition);
+			output += printRegex("-", Integer.toString(multiplication).length());
+		}
+		return output;
 	}
 	
-	public static String getIterationLine5() {
-		return "";
-	}
-    
-    
-    
-    public static void main(String []args) throws Exception{
+	public static String[] splitApart(String string, int splitHereIndex){
+        String[] result = {string.substring(0, splitHereIndex), string.substring(splitHereIndex)};
         
-        System.out.println("Добро пожаловать в утилиту автоматического деления столбиком!");
-        System.out.println("Введите задание в формате: делимое/делитель");
-        scanner = new Scanner(System.in);
-        input = scanner.nextLine();
-        scanner.close();
-        String[] numberLines = input.split("/");
-        firstNumberLine = numberLines[0];
-        secondNumberLine = numberLines[1];
-        inputChecks();
-        
-        reply = Math.round(firstNumber/secondNumber);
-        replyLine = Integer.toString(reply);        
-        splittableLength = secondNumberLine.length();
-        firstNumberRemainder = firstNumberLine;
-        
-        while(firstNumberRemainder.length()>0){
-        	String iterationLine1="";
-        	String iterationLine2="";
-        	String iterationLine3="";
-        	String iterationLine4="";
-        	String iterationLine5="";
-        	
-        	iterationLine1 = " " + firstNumber + " | " + secondNumber;
-            System.out.println(iterationLine1);
-            
-            iterationLine2="-";
-            for(int i=0; i<firstNumberLine.length(); i++){
-            	iterationLine2 += " ";
-            }
-            iterationLine2 += " | ";
-            for(int i=0; i<secondNumberLine.length()+1; i++){
-            	iterationLine2 += "-";
-            }
-            System.out.println(iterationLine2);
-        	
-        	String[] fragmentedNumber = splitApart(firstNumberLine, splittableLength);
-            String firstNumberFragmentLine = fragmentedNumber[0];
-            firstNumberRemainder = fragmentedNumber[1];
-            int firstNumberFragment = Integer.parseInt(firstNumberFragmentLine);
-            if(firstNumberFragment<secondNumber){
-                splittableLength++;
-                continue;
-            }
-            int multiplication = secondNumber*Character.digit(replyLine.charAt(counter), 10);
-            int subtraction = firstNumberFragment-multiplication;
-            int firstNumberFragmentLength=firstNumberFragmentLine.length();
-            int multiplicationLength = Integer.toString(multiplication).length();
-            if(firstNumberFragmentLength > multiplicationLength){
-            	iterationLine3 += " ";
-            }
-            iterationLine3 += subtraction;
-            //iterationLine3=printable + subtraction;
-            if(counter==0){
-                for(int i=0; i<firstNumberRemainder.length(); i++){
-                	startPrintPosition++;
-                }
-                iterationLine3 += " | " + reply;
-            }
-            System.out.println(iterationLine3);
-            counter++;
-            splittableLength = secondNumberLine.length();
+        return result;
+    }
+	
+	public static String printRegex(String regex, int times) {
+		String output="";
+		for(int i=0; i<times; i++){
+        	output += regex;
         }
-        
-        
-        
-        
-        
-        //char[] firstNumberChars = numbers[0].toCharArray();
-        //char[] secondNumberChars = numbers[1].toCharArray();
-        
-        //int secondNumberCharsLength = secondNumberChars.length();
-        //int firstNumberFragment
-        
-        
-        
-        
-        
-     }
+		return output;
+	}
 }
