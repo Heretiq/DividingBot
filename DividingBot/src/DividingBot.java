@@ -106,13 +106,10 @@ public class DividingBot{
 			subtraction = firstNumberFragment-multiplication;
 			startPrintPosition += Integer.toString(multiplication).length() - Integer.toString(subtraction).length();
 			firstNumberFragment = subtraction;
-			while(firstNumberFragment < secondNumber) {
-				if(firstNumberRemainder.length()>0) {
+			while(firstNumberFragment < secondNumber && firstNumberRemainder.length()>0) {
 					firstNumberFragment = firstNumberFragment*10 + Character.digit(firstNumberRemainder.charAt(0), 10);
 					firstNumberRemainder=firstNumberRemainder.substring(1);
 					counter++;
-				}
-				else break;
 			}
 			firstNumberFragmentLine = Integer.toString(firstNumberFragment);
 			
@@ -129,7 +126,6 @@ public class DividingBot{
 			output = printRegex("-", 1);
 			if(counter==0) {
 				output += printRegex(" ", firstNumberLine.length());
-				
 				output += " | ";
 				output += printRegex("-", secondNumberLine.length()+1);
 			}
