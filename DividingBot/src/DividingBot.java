@@ -54,8 +54,70 @@ public class DividingBot{
         	System.out.println(getIterationLine4());
         	//counter++; 
         } while(firstNumberRemainder.length()>0);
-  
     }
+		
+	public static String getIterationLine1() {
+		String output="";
+		if(counter==0){
+			startPrintPosition++;
+			output = printRegex(" ", startPrintPosition) + firstNumber + " | " + secondNumber;
+		}
+		else {
+			subtraction = firstNumberFragment-multiplication;
+			startPrintPosition += Integer.toString(multiplication).length() - Integer.toString(subtraction).length();
+			firstNumberFragment = subtraction;
+			int repeat=0;
+			while(firstNumberFragment < secondNumber && firstNumberRemainder.length()>0) {
+					firstNumberFragment = firstNumberFragment*10 + Character.digit(firstNumberRemainder.charAt(0), 10);
+					if(firstNumberRemainder.length()>1)
+						firstNumberRemainder=firstNumberRemainder.substring(1);
+					else if(firstNumberRemainder.length()==1) firstNumberRemainder="";
+					if(repeat>0) counter++;
+					repeat++;
+			}
+			firstNumberFragmentLine = Integer.toString(firstNumberFragment);
+			
+			output = printRegex(" ", startPrintPosition) + firstNumberFragmentLine;
+		}
+		return output;
+	}
+	
+	public static String getIterationLine2() {
+		String output="";
+		startPrintPosition--;
+		output = printRegex(" ", startPrintPosition);
+		output = printRegex("-", 1);
+		if(counter==0) {
+			output += printRegex(" ", firstNumberLine.length());
+			output += " | ";
+			output += printRegex("-", secondNumberLine.length()+1);
+		}
+		return output;
+	}
+	
+	public static String getIterationLine3() {
+		String output="";
+		multiplication = secondNumber*Character.digit(replyLine.charAt(counter), 10);
+		startPrintPosition++;
+		if(firstNumberFragmentLine.length() > Integer.toString(multiplication).length()) {
+			startPrintPosition++;
+		}
+		output = printRegex(" ", startPrintPosition);
+		output += multiplication;
+		if(counter==0) {
+			output += printRegex(" ", firstNumberRemainder.length());
+			output += " | " + reply;
+			counter++;
+		}
+		return output;
+	}
+	
+	public static String getIterationLine4() {
+		String output="";
+		output = printRegex(" ", startPrintPosition);
+		output += printRegex("-", Integer.toString(multiplication).length());
+		return output;
+	}
 	
 	public static void inputChecks()throws Exception{
 		try{
@@ -95,74 +157,6 @@ public class DividingBot{
             System.exit(0);
         }
     }
-		
-	public static String getIterationLine1() {
-		String output="";
-		if(counter==0){
-			startPrintPosition++;
-			output = printRegex(" ", startPrintPosition) + firstNumber + " | " + secondNumber;
-		}
-		else {
-			subtraction = firstNumberFragment-multiplication;
-			startPrintPosition += Integer.toString(multiplication).length() - Integer.toString(subtraction).length();
-			firstNumberFragment = subtraction;
-			while(firstNumberFragment < secondNumber && firstNumberRemainder.length()>0) {
-					firstNumberFragment = firstNumberFragment*10 + Character.digit(firstNumberRemainder.charAt(0), 10);
-					firstNumberRemainder=firstNumberRemainder.substring(1);
-					counter++;
-			}
-			firstNumberFragmentLine = Integer.toString(firstNumberFragment);
-			
-			output = printRegex(" ", startPrintPosition) + firstNumberFragmentLine;
-		}
-		return output;
-	}
-	
-	public static String getIterationLine2() {
-		String output="";
-		if(firstNumberRemainder.length()>0) {
-			startPrintPosition--;
-			output = printRegex(" ", startPrintPosition);
-			output = printRegex("-", 1);
-			if(counter==0) {
-				output += printRegex(" ", firstNumberLine.length());
-				output += " | ";
-				output += printRegex("-", secondNumberLine.length()+1);
-			}
-		}
-		return output;
-	}
-	
-	public static String getIterationLine3() {
-		//System.out.println("Вход в getIterationLine3()"+ "firstNumberRemainder= "+firstNumberRemainder);
-		String output="";
-		multiplication = secondNumber*Character.digit(replyLine.charAt(counter), 10);
-		if(firstNumberRemainder.length()>0) {
-			startPrintPosition++;
-			if(firstNumberFragmentLine.length() > Integer.toString(multiplication).length()) {
-				startPrintPosition++;
-			}
-			output = printRegex(" ", startPrintPosition);
-			output += multiplication;
-		}
-		if(counter==0) {
-			output += printRegex(" ", firstNumberRemainder.length());
-			output += " | " + reply;
-			counter++;
-		}
-		//System.out.println("Выход из getIterationLine3(), "+ "output= "+output);
-		return output;
-	}
-	
-	public static String getIterationLine4() {
-		String output="";
-		if(firstNumberRemainder.length()>0) {
-			output = printRegex(" ", startPrintPosition);
-			output += printRegex("-", Integer.toString(multiplication).length());
-		}
-		return output;
-	}
-	
 	public static String[] splitApart(String string, int splitHereIndex){
         String[] result = {string.substring(0, splitHereIndex), string.substring(splitHereIndex)};
         
