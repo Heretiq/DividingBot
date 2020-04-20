@@ -1,3 +1,4 @@
+import java.awt.Dimension;
 import java.util.*;
 //import java.lang.Math.*;
 
@@ -23,6 +24,7 @@ public class DividingBot{
 	static String multiplicationLine;
 	static String subtractionLine;
 	static String firstNumberFragmentLine;
+	static String finalOutput="";
     
 	public static void main(String []args) throws Exception{
         
@@ -48,13 +50,24 @@ public class DividingBot{
             else break;
         }
         do{
-        	System.out.println(getIterationLine1());
-        	System.out.println(getIterationLine2());
-        	System.out.println(getIterationLine3());
-        	System.out.println(getIterationLine4());
+        	finalOutput += getIterationLine1()+"\n";
+        	finalOutput += getIterationLine2()+"\n";
+        	finalOutput += getIterationLine3()+"\n";
+        	finalOutput += getIterationLine4()+"\n";
+        	
+        	//System.out.println(getIterationLine1());
+        	//System.out.println(getIterationLine2());
+        	//System.out.println(getIterationLine3());
+        	//System.out.println(getIterationLine4());
         	//counter++; 
         } while(firstNumberRemainder.length()>0);
-    }
+        //System.out.println(finalOutput);
+        OutputWindow w = new OutputWindow();
+        System.out.print(w.output);
+		w.setSize(new Dimension(300,300));
+		w.setTitle("Деление столбиком");
+		w.setVisible(true);
+	}
 		
 	public static String getIterationLine1() {
 		String output="";
