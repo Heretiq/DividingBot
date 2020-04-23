@@ -1,6 +1,4 @@
-import java.awt.Dimension;
 import java.util.*;
-//import java.lang.Math.*;
 
 public class DividingBot{
     
@@ -13,8 +11,6 @@ public class DividingBot{
 	static int startPrintPosition=0;
 	static int multiplication=0;
 	static int subtraction=0;
-	//static int firstNumberFragmentLength=0;
-	//static int multiplicationLength=0;
 	static int firstNumberFragment=0;
 	static String firstNumberLine;
 	static String secondNumberLine;
@@ -25,6 +21,7 @@ public class DividingBot{
 	static String subtractionLine;
 	static String firstNumberFragmentLine;
 	static String finalOutput="";
+	static boolean goOn = true;
     
 	public static void main(String []args) throws Exception{
         
@@ -38,36 +35,24 @@ public class DividingBot{
         replyLine = Integer.toString(reply);  
         
         int splittableLength = secondNumberLine.length();
-        while(true){
+        do{
         	String[] fragmentedNumber = splitApart(firstNumberLine, splittableLength);
             firstNumberFragmentLine = fragmentedNumber[0];
             firstNumberRemainder = fragmentedNumber[1];
             firstNumberFragment = Integer.parseInt(firstNumberFragmentLine);
-            if(firstNumberFragment<secondNumber){
-                splittableLength++;
-                continue;
-            }
-            else break;
+            splittableLength++;
+        }	while(firstNumberFragment<secondNumber);
+        
+        while(goOn){
+        	System.out.println(getIterationLine1());
+        	if(goOn == false) break;
+        	else {
+        		System.out.println(getIterationLine2());
+        		System.out.println(getIterationLine3());
+            	System.out.println(getIterationLine4());
+        	}
         }
-        do{
-        	finalOutput += getIterationLine1()+"\n";
-        	finalOutput += getIterationLine2()+"\n";
-        	finalOutput += getIterationLine3()+"\n";
-        	finalOutput += getIterationLine4()+"\n";
-        	
-        	//System.out.println(getIterationLine1());
-        	//System.out.println(getIterationLine2());
-        	//System.out.println(getIterationLine3());
-        	//System.out.println(getIterationLine4());
-        	//counter++; 
-        } while(firstNumberRemainder.length()>0);
-        //System.out.println(finalOutput);
-        OutputWindow w = new OutputWindow();
-        System.out.print(w.output);
-		w.setSize(new Dimension(300,300));
-		w.setTitle("Деление столбиком");
-		w.setVisible(true);
-	}
+    }
 		
 	public static String getIterationLine1() {
 		String output="";
@@ -77,7 +62,19 @@ public class DividingBot{
 		}
 		else {
 			subtraction = firstNumberFragment-multiplication;
+			if (subtraction == 0) {
+				startPrintPosition++;
+			}
 			startPrintPosition += Integer.toString(multiplication).length() - Integer.toString(subtraction).length();
+			if(firstNumberRemainder.length()==0) {
+				goOn=false;
+				output = printRegex(" ", startPrintPosition) + subtraction;
+				if(subtraction != 0) {
+					output += " - остаток";
+				}
+				//finalOutput += output +"\n";
+				return output;
+			}
 			firstNumberFragment = subtraction;
 			int repeat=0;
 			while(firstNumberFragment < secondNumber && firstNumberRemainder.length()>0) {
@@ -89,9 +86,9 @@ public class DividingBot{
 					repeat++;
 			}
 			firstNumberFragmentLine = Integer.toString(firstNumberFragment);
-			
 			output = printRegex(" ", startPrintPosition) + firstNumberFragmentLine;
 		}
+		//finalOutput += output +"\n";
 		return output;
 	}
 	
@@ -99,12 +96,13 @@ public class DividingBot{
 		String output="";
 		startPrintPosition--;
 		output = printRegex(" ", startPrintPosition);
-		output = printRegex("-", 1);
+		output += printRegex("-", 1);
 		if(counter==0) {
 			output += printRegex(" ", firstNumberLine.length());
 			output += " | ";
-			output += printRegex("-", secondNumberLine.length()+1);
+			output += printRegex("-", replyLine.length());
 		}
+		//finalOutput += output +"\n";
 		return output;
 	}
 	
@@ -120,8 +118,9 @@ public class DividingBot{
 		if(counter==0) {
 			output += printRegex(" ", firstNumberRemainder.length());
 			output += " | " + reply;
-			counter++;
 		}
+		counter++;
+		//finalOutput += output +"\n";
 		return output;
 	}
 	
@@ -129,6 +128,7 @@ public class DividingBot{
 		String output="";
 		output = printRegex(" ", startPrintPosition);
 		output += printRegex("-", Integer.toString(multiplication).length());
+		//finalOutput += output +"\n";
 		return output;
 	}
 	
@@ -139,21 +139,22 @@ public class DividingBot{
 			secondNumberLine = numberLines[1];
 		}
 		catch(Exception e) {
-			System.out.println("Работа утилиты прекращена: неверный формат ввода");
+			System.out.println("Работа утилиты прекращена: неверный формат ввода ( / )");
             System.exit(0);
 		}
 		try{
             firstNumber = Integer.parseInt(firstNumberLine);
         }
         catch(Exception e){
-            System.out.println("Работа утилиты прекращена: неверный формат ввода");
+            //long firstNumberLong = Long.parseLong(firstNumberLine);
+        	System.out.println("Работа утилиты прекращена: неверный формат ввода (1n)");
             System.exit(0);
         }
         try{
             secondNumber = Integer.parseInt(secondNumberLine);
         }
         catch(Exception e){
-            System.out.println("Работа утилиты прекращена: неверный формат ввода");
+            System.out.println("Работа утилиты прекращена: неверный формат ввода (2n)");
             System.exit(0);
         }
         if(firstNumber<secondNumber){
@@ -166,7 +167,7 @@ public class DividingBot{
         }
         intervalPosition = input.indexOf("/");
         if(intervalPosition<1){
-            System.out.println("Работа утилиты прекращена: неверный формат ввода");
+            System.out.println("Работа утилиты прекращена: неверный формат ввода (n1 n/a)");
             System.exit(0);
         }
     }

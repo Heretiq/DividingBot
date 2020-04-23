@@ -20,3 +20,11 @@ public class OutputWindow extends Frame{
 		}
 	}
 }
+
+//System.out.println(finalOutput);
+//OutputWindow w = new OutputWindow();
+//System.out.print(w.output);
+//w.setSize(new Dimension(300,300));
+//w.setTitle("Деление столбиком");
+//w.setVisible(true);
+
