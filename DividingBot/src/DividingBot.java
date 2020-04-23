@@ -100,7 +100,10 @@ public class DividingBot{
 		if(counter==0) {
 			output += printRegex(" ", firstNumberLine.length());
 			output += " | ";
-			output += printRegex("-", replyLine.length());
+			if(secondNumber>reply)
+				output += printRegex("-", secondNumberLine.length());
+			else
+				output += printRegex("-", replyLine.length());
 		}
 		//finalOutput += output +"\n";
 		return output;
