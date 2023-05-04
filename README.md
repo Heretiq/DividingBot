@@ -1,3 +1,4 @@
 # DividingBot
-Graphic division utility
-утилита автоматического деления столбиком
+Graphic division utility (console app)
+
+Консольная утилита автоматического деления столбиком
